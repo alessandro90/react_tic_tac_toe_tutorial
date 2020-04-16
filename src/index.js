@@ -25,7 +25,7 @@ class Board extends React.Component {
     renderRow(j) {
         let row = [];
         for (let i = 0; i < 3; i++) {
-            row = row.concat([this.renderSquare(j + i * 3)]);
+            row = row.concat([this.renderSquare(i + j * 3)]);
         }
         return row;
     }
@@ -94,7 +94,7 @@ class Game extends React.Component {
             
             return (
                 <li style={{fontWeight: weight}} key={move}>
-                    <button onClick={() => this.jumpToMove(move)}>{desc}</button>
+                    <button className="stepButton" onClick={() => this.jumpToMove(move)}>{desc}</button>
                     <ul>{step.lastMove}</ul>
                 </li>
             );

@@ -1,3 +1,7 @@
+:root {
+    --light-background: #e1d2fc;
+}
+
 body {
     font: 14px "Century Gothic", Futura, sans-serif;
     margin: 20px;
@@ -32,6 +36,10 @@ ol, ul {
     width: 34px;
 }
 
+.square:hover {
+    background-color: var(--light-background);
+}
+
 .square:focus {
     outline: none;
 }
@@ -47,4 +55,14 @@ ol, ul {
 
 .game-info {
     margin-left: 20px;
+}
+
+.stepButton {
+    border: 0px;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+.stepButton:hover {
+    background-color: var(--light-background);
 }
