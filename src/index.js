@@ -44,6 +44,15 @@ class Board extends React.Component {
     }
 }
 
+function Switch(props) {
+    return (
+        <label className="switch-wrap">
+            <input type="checkbox" onClick={props.onClick}/>
+            <div className="switch"></div>
+        </label>
+    );
+}
+
 class Game extends React.Component {
     constructor(props) {
         super(props);
@@ -54,6 +63,7 @@ class Game extends React.Component {
             }],
             stepNumber: 0,
             xIsNext: true,
+            revertOrder: 'down',
         };
     }
 
@@ -79,12 +89,25 @@ class Game extends React.Component {
         });
     }
 
+    revertHystory() {
+        const order = this.state.revertOrder === 'down'? 'up' : 'down'
+        this.setState({...this.state, revertOrder: order});
+    }
+
     render() {
-        const history = this.state.history;
+        const history = this.state.history.slice();
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
 
-        const moves = history.map((step, move) => {
+        const moves = history.map((mStep, mMove, his) => {
+            let move, step;
+            if (this.state.revertOrder === 'up') {
+                step = his[his.length - 1 - mMove];
+                move = his.length - 1 - mMove;
+            } else {
+                step = mStep;
+                move = mMove;
+            }
             const desc = move > 0 ?
                 `Go to move #${move}` :
                 'Go to game start';
@@ -118,6 +141,7 @@ class Game extends React.Component {
                     <div>{status}</div>
                     <ol>{moves}</ol>
                 </div>
+                <Switch onClick={() => this.revertHystory()}/>
             </div>
         );
     }
