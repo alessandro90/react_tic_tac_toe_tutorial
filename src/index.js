@@ -46,9 +46,9 @@ class Board extends React.Component {
 
 function Switch(props) {
     return (
-        <label className="switch-wrap">
+        <label className="toggle">
             <input type="checkbox" onClick={props.onClick}/>
-            <div className="switch"></div>
+            <span className="slider"></span>
         </label>
     );
 }
