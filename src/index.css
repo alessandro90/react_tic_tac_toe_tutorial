@@ -85,8 +85,9 @@ ol, ul {
 .toggle {
     position: relative;
     display: inline-block;
-    width: 68px;
-    height: 30px;
+    margin-top: 20px;
+    width: 40px;
+    height: 20px;
 }
 .slider {
     position: absolute;
@@ -105,8 +106,8 @@ ol, ul {
 .slider:before {
     position: absolute;
     content: "";
-    width: 24px;
-    height: 24px;
+    width: 15px;
+    height: 15px;
     left: 2px;
     top: 2px;
     background-color: #c8ffcb;
@@ -119,5 +120,11 @@ input:checked + .slider {
     background-color: #c8ceff;
 }
 input:checked + .slider:before {
-    transform: translateX(37px);
+    transform: translateX(20px);
+}
+
+.reset {
+    background-color: #ceffde;
+    border-radius: 4px;
+    margin-top: 20px;
 }

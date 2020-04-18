@@ -59,18 +59,30 @@ function Switch(props) {
     );
 }
 
+function Reset(props) {
+    return (
+        <button className="reset" onClick={props.onClick}>Reset</button>
+    );
+}
+
+const baseState = {
+    history: [{
+        squares: Array(9).fill(null),
+        lastMove: null,
+    }],
+    stepNumber: 0,
+    xIsNext: true,
+    revertOrder: false,
+};
+
 class Game extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            history: [{
-                squares: Array(9).fill(null),
-                lastMove: null,
-            }],
-            stepNumber: 0,
-            xIsNext: true,
-            revertOrder: 'down',
-        };
+        this.state = baseState;
+    }
+
+    resetGame() {
+        this.setState(baseState);
     }
 
     handleClick(i) {
@@ -96,8 +108,7 @@ class Game extends React.Component {
     }
 
     revertHystory() {
-        const order = this.state.revertOrder === 'down' ? 'up' : 'down'
-        this.setState({...this.state, revertOrder: order});
+        this.setState({...this.state, revertOrder: !this.state.revertOrder});
     }
 
     render() {
@@ -107,7 +118,7 @@ class Game extends React.Component {
 
         const moves = history.map((mStep, mMove, his) => {
             let move, step;
-            if (this.state.revertOrder === 'up') {
+            if (this.state.revertOrder) {
                 step = his[his.length - 1 - mMove];
                 move = his.length - 1 - mMove;
             } else {
@@ -149,12 +160,15 @@ class Game extends React.Component {
                         onClick={i => this.handleClick(i)}
                         winnerSquares={winnerSquares}
                     />
+                    <div>
+                        <Switch onClick={() => this.revertHystory()}/>
+                    </div>
+                    <Reset onClick={() => this.resetGame()}/>
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
                     <ol>{moves}</ol>
                 </div>
-                <Switch onClick={() => this.revertHystory()}/>
             </div>
         );
     }
