@@ -53,7 +53,7 @@ class Board extends React.Component {
 function Switch(props) {
     return (
         <label className="toggle">
-            <input type="checkbox" onClick={props.onClick}/>
+            <input id="toggle" type="checkbox" onClick={props.onClick}/>
             <span className="slider"></span>
         </label>
     );
@@ -82,6 +82,7 @@ class Game extends React.Component {
     }
 
     resetGame() {
+        document.getElementById('toggle').checked = false;
         this.setState(baseState);
     }
 
