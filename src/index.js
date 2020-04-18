@@ -50,13 +50,31 @@ class Board extends React.Component {
     }
 }
 
-function Switch(props) {
-    return (
-        <label className="toggle">
-            <input id="toggle" type="checkbox" onClick={props.onClick}/>
-            <span className="slider"></span>
-        </label>
-    );
+class Switch extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {checked: false};
+    }
+
+    uncheck() {
+        this.setState({...this.state, checked: false});
+    }
+
+    render() {
+        return (
+            <label className="toggle">
+                <input
+                    checked={this.state.checked}
+                    type="checkbox"
+                    onClick={this.props.onClick}
+                    onChange={() => this.setState({
+                        ...this.state, checked: !this.state.checked
+                    })}
+                />
+                <span className="slider"></span>
+            </label>
+        );
+    }
 }
 
 function Reset(props) {
@@ -79,10 +97,11 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = baseState;
+        this.Switch = React.createRef();
     }
 
     resetGame() {
-        document.getElementById('toggle').checked = false;
+        this.Switch.current.uncheck();
         this.setState(baseState);
     }
 
@@ -162,7 +181,7 @@ class Game extends React.Component {
                         winnerSquares={winnerSquares}
                     />
                     <div>
-                        <Switch onClick={() => this.revertHystory()}/>
+                        <Switch ref={this.Switch} onClick={() => this.revertHystory()}/>
                     </div>
                     <Reset onClick={() => this.resetGame()}/>
                 </div>
