@@ -57,7 +57,7 @@ class Switch extends React.Component {
     }
 
     uncheck() {
-        this.setState({...this.state, checked: false});
+        this.setState({checked: false});
     }
 
     render() {
@@ -68,7 +68,7 @@ class Switch extends React.Component {
                     type="checkbox"
                     onClick={this.props.onClick}
                     onChange={() => this.setState({
-                        ...this.state, checked: !this.state.checked
+                        checked: !this.state.checked
                     })}
                 />
                 <span className="slider"></span>
@@ -128,7 +128,7 @@ class Game extends React.Component {
     }
 
     revertHystory() {
-        this.setState({...this.state, revertOrder: !this.state.revertOrder});
+        this.setState({revertOrder: !this.state.revertOrder});
     }
 
     render() {
