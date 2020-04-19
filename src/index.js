@@ -50,31 +50,17 @@ class Board extends React.Component {
     }
 }
 
-class Switch extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {checked: false};
-    }
-
-    uncheck() {
-        this.setState({checked: false});
-    }
-
-    render() {
-        return (
-            <label className="toggle">
-                <input
-                    checked={this.state.checked}
-                    type="checkbox"
-                    onClick={this.props.onClick}
-                    onChange={() => this.setState({
-                        checked: !this.state.checked
-                    })}
-                />
-                <span className="slider"></span>
-            </label>
-        );
-    }
+function Switch(props) {
+    return (
+        <label className="toggle">
+            <input
+                checked={props.checked}
+                type="checkbox"
+                onChange={props.onChange}
+            />
+            <span className="slider"></span>
+        </label>
+    );
 }
 
 function Reset(props) {
@@ -91,17 +77,16 @@ const baseState = {
     stepNumber: 0,
     xIsNext: true,
     revertOrder: false,
+    checkedSwitch: false,
 };
 
 class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = baseState;
-        this.Switch = React.createRef();
     }
 
     resetGame() {
-        this.Switch.current.uncheck();
         this.setState(baseState);
     }
 
@@ -127,8 +112,11 @@ class Game extends React.Component {
         });
     }
 
-    revertHystory() {
-        this.setState({revertOrder: !this.state.revertOrder});
+    handleToggleSwitch() {
+        this.setState((prevState, _) => ({
+            checkedSwitch: !prevState.checkedSwitch,
+            revertOrder: !prevState.revertOrder
+        }));
     }
 
     render() {
@@ -181,7 +169,9 @@ class Game extends React.Component {
                         winnerSquares={winnerSquares}
                     />
                     <div>
-                        <Switch ref={this.Switch} onClick={() => this.revertHystory()}/>
+                        <Switch
+                            checked={this.state.checkedSwitch}
+                            onChange={() => this.handleToggleSwitch()}/>
                     </div>
                     <Reset onClick={() => this.resetGame()}/>
                 </div>
