@@ -173,7 +173,7 @@ class Game extends React.Component {
                             checked={this.state.checkedSwitch}
                             onChange={this.handleToggleSwitch}/>
                     </div>
-                    <Reset onClick={() => this.resetGame()}/>
+                    <Reset onClick={this.resetGame}/>
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
