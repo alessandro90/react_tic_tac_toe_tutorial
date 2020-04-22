@@ -86,7 +86,7 @@ class Game extends React.Component {
         this.state = baseState;
     }
 
-    resetGame() {
+    resetGame = () => {
         this.setState(baseState);
     }
 
@@ -105,14 +105,14 @@ class Game extends React.Component {
         });
     }
 
-    jumpToMove(step) {
+    jumpToMove = (step) => {
         this.setState({
             stepNumber: step,
             xIsNext: (step % 2) === 0,
         });
     }
 
-    handleToggleSwitch() {
+    handleToggleSwitch = () => {
         this.setState((prevState, _) => ({
             checkedSwitch: !prevState.checkedSwitch,
             revertOrder: !prevState.revertOrder
@@ -171,7 +171,7 @@ class Game extends React.Component {
                     <div>
                         <Switch
                             checked={this.state.checkedSwitch}
-                            onChange={() => this.handleToggleSwitch()}/>
+                            onChange={this.handleToggleSwitch}/>
                     </div>
                     <Reset onClick={() => this.resetGame()}/>
                 </div>
